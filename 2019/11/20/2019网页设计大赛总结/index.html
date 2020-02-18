@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Hole" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="小喇叭Q &#x3D;&#x3D; Question A &#x3D;&#x3D; Answer RT &#x3D;&#x3D; Rethink canvas渲染错乱问题（偶然性）Q：首屏以及组别页面的canvas渲染动画，在偶然情况下会出现错乱 A：给每一个动画定义一个变化，做一个总的定时器，在里面判断各变量变化情况来决定是否进行下一个图形的绘制 RT： 会出现错乱的根本原因是每个绘图部分没有给足渲染时间，setInterval 的间隔时间太短 setI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2019 网页设计大赛总结">
+<meta property="og:url" content="http://yoursite.com/2019/11/20/2019%E7%BD%91%E9%A1%B5%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Hole">
+<meta property="og:description" content="小喇叭Q &#x3D;&#x3D; Question A &#x3D;&#x3D; Answer RT &#x3D;&#x3D; Rethink canvas渲染错乱问题（偶然性）Q：首屏以及组别页面的canvas渲染动画，在偶然情况下会出现错乱 A：给每一个动画定义一个变化，做一个总的定时器，在里面判断各变量变化情况来决定是否进行下一个图形的绘制 RT： 会出现错乱的根本原因是每个绘图部分没有给足渲染时间，setInterval 的间隔时间太短 setI">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-11-20T12:55:04.000Z">
+<meta property="article:modified_time" content="2019-11-24T14:18:54.282Z">
+<meta property="article:author" content="ouu">
+<meta property="article:tag" content="summary">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/11/20/2019%E7%BD%91%E9%A1%B5%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B%E6%80%BB%E7%BB%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>2019 网页设计大赛总结 | Hole</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hole</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/20/2019%E7%BD%91%E9%A1%B5%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="ouu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hole">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2019 网页设计大赛总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-20 20:55:04" itemprop="dateCreated datePublished" datetime="2019-11-20T20:55:04+08:00">2019-11-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-24 22:18:54" itemprop="dateModified" datetime="2019-11-24T22:18:54+08:00">2019-11-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="小喇叭"><a href="#小喇叭" class="headerlink" title="小喇叭"></a>小喇叭</h2><p>Q == Question</p>
+<p>A == Answer</p>
+<p>RT == Rethink</p>
+<h2 id="canvas"><a href="#canvas" class="headerlink" title="canvas"></a>canvas</h2><h3 id="渲染错乱问题（偶然性）"><a href="#渲染错乱问题（偶然性）" class="headerlink" title="渲染错乱问题（偶然性）"></a>渲染错乱问题（偶然性）</h3><p>Q：首屏以及组别页面的canvas渲染动画，在偶然情况下会出现错乱</p>
+<p>A：给每一个动画定义一个变化，做一个总的定时器，在里面判断各变量变化情况来决定是否进行下一个图形的绘制</p>
+<p>RT：</p>
+<p>会出现错乱的根本原因是每个绘图部分没有给足渲染时间，setInterval 的间隔时间太短</p>
+<p>setInterval 间隔时间 —— 最低是10ms，低于这个的自动增为10ms</p>
+<p>用 setInterval 而不用 requestAnimationFrame 的原因是 前者可以自由控制动画每一帧间隔的时间，而后者会自动以1min为总时长自动规划，有时候并不需要整一分钟来绘制。这次作品同个时间段只能进行一个动画的绘制，不能同去年的作品一样，可以同时绘制图形，类似于多个画笔，猜测是实现动画的方式不同，需要去学习。</p>
+<h3 id="自适应问题"><a href="#自适应问题" class="headerlink" title="自适应问题"></a>自适应问题</h3><p>Q：canvas 画布在不同屏幕下无应有效果</p>
+<p>A：利用 js 在每一次刷新时，都将画布的宽高根据window的宽高来变</p>
+<p>​    （更优解）直接在css就给画布的宽高定上100vw，xvh</p>
+<p>RT： 感觉以后能多用css就少用js来进行一些自适应以及动画的操作</p>
+<h3 id="多层色星球填色动画"><a href="#多层色星球填色动画" class="headerlink" title="多层色星球填色动画"></a>多层色星球填色动画</h3><p>Q：需求是实现一个圆，圆内根据颜色分层，如图效果</p>
+<p>A：先定义一个圆，利用canvas中的一个 <strong>clip</strong> 的api，使得只有圆内区域是可见区域</p>
+<p>​        再根据不同层次创建不同填充色的 rect ，在圆内进行排列拼接堆叠</p>
+<p>​        最后再创建 rect - points 的arr，创建定时器：定时移除数组的第一项 &amp;&amp; 创建rect以达成类似填色效果</p>
+<h3 id="多边形填色"><a href="#多边形填色" class="headerlink" title="多边形填色"></a>多边形填色</h3><p>Q： 需求是实现一个表面坑坑洼洼、凹凸不平的星球的形象，如图</p>
+<p>A： 直接利用 canvas 的 lineTo 硬核算点， closePath 来自动闭合曲线（技巧是定连接首尾的第三点在超过屏幕范围外，来遮住闭合线），最后再 fillColor</p>
+<h3 id="表面粗糙的圆"><a href="#表面粗糙的圆" class="headerlink" title="表面粗糙的圆"></a>表面粗糙的圆</h3><p>Q：需求是做一个类似月球的形象，表面不可太过于光滑，如图</p>
+<p>A： 在进行动画绘制的时候，本来应是以每1°的的点连线，达成类似画圆效果。这边就直接加大点间隔，以10°为一间隔</p>
+<h3 id="贝塞尔曲线"><a href="#贝塞尔曲线" class="headerlink" title="贝塞尔曲线"></a>贝塞尔曲线</h3><p>Q： 需求是实现画出不同曲线线段的动画</p>
+<p>A： 当时参考的教程是：<a href="https://github.com/hujiulong/blog/issues/1" target="_blank" rel="noopener">用canvas绘制一个曲线动画——深入理解贝塞尔曲线</a></p>
+<p>人家写的比我的好多了orz….直接看吧</p>
+<a id="more"></a>
+
+<h2 id="非常频繁出现的elementScrollTop"><a href="#非常频繁出现的elementScrollTop" class="headerlink" title="非常频繁出现的elementScrollTop"></a>非常频繁出现的elementScrollTop</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> elementScrollTop = <span class="built_in">document</span>.documentElement.scrollTop || <span class="built_in">document</span>.body.scrollTop</span><br></pre></td></tr></table></figure>
+
+<h3 id="自动更改导航选中项"><a href="#自动更改导航选中项" class="headerlink" title="自动更改导航选中项"></a>自动更改导航选中项</h3><p>Q： 当不点击导航进行跳转时，侧边栏又有显示当前页面的选中项的情况</p>
+<p>A： 根据 elementScrollTop 与 dom.offsetTop 的差来判断页面滚动到了哪，实施更改导航选中项</p>
+<h3 id="插画scale覆盖无法点击"><a href="#插画scale覆盖无法点击" class="headerlink" title="插画scale覆盖无法点击"></a>插画scale覆盖无法点击</h3><p>Q： 需求是做一个插画随着鼠标滚动，从远处拉回近处的视觉效果，但放大后插画宽高过大，会覆盖前面的内容，导致前面内容的hover、click都无法实现。</p>
+<p>A： 根据 elementScrollTop 判断鼠标此时滚动位置，只有 elementScrollTop 与 illustrations.offsetTop 相差大于0时，illustrations才添加上 <code>display: block</code>，否则都是none的状态</p>
+<p>RT：之前试过一种方法是将前面需要hover、click的dom进行ab布局，强行用z-index提到最表层，但是这样的话，上面就少了东西占位，导致下面的插画视差动画的效果差。</p>
+<h3 id="Fake-Lazy-Load"><a href="#Fake-Lazy-Load" class="headerlink" title="Fake Lazy Load"></a>Fake Lazy Load</h3><p>Q： 需求是做一个类似懒加载的一个效果</p>
+<p>A： 根据 elementScrollTop 与 clientH * pageIndex的差来算页数，根据页数判断需要加动画的dom arr</p>
+<p>RT： </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> clientH = <span class="built_in">window</span>.innerHeight || <span class="built_in">document</span>.documentElement.clientHeight || <span class="built_in">document</span>.body.clientHeight</span><br></pre></td></tr></table></figure>
+
+<p>用clientH来判断是不是到可视窗口，算页数是因为有的页面不止100vh</p>
+<p>写到这里….我突然想到是不是直接用offsetTop也能解决…跟前面自动更改导航的选中项用在一个函数里orz….这样甚至不用算页数了…</p>
+<p>动画效果是：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> load &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateY</span>(<span class="number">10vh</span>) <span class="built_in">scale</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  100% &#123;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translateY</span>(<span class="number">0</span>) <span class="built_in">scale</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="不同页面绑定不同的滚动函数"><a href="#不同页面绑定不同的滚动函数" class="headerlink" title="不同页面绑定不同的滚动函数"></a>不同页面绑定不同的滚动函数</h3><p>Q： 需求是不同页面有不同的滚动动画的效果，</p>
+<p>A： 根据 elementScrollTop 与 dom.offsetTop 的差来判断页面滚动到了哪一页，添加不同的动画函数，且还利用对象来区分不同的高度等一系列属性值</p>
+<p>RT：这个一开始写着都没有问题，但是当我写到后面的时候，发现前面的函数失效了（我的愚蠢写法是在不同函数里定义多个window.scroll来写）但是这样在各函数里好像会有覆盖现象？？总之就是 单个函数就实现了…后来写的可以实现，前面写的失效</p>
+<h2 id="SVG做云的矢量图形"><a href="#SVG做云的矢量图形" class="headerlink" title="SVG做云的矢量图形"></a>SVG做云的矢量图形</h2><p>Q： 需求是做三个不同形状的云，三条不同路径，无规律排列</p>
+<p>A： 创建云的对象，根据传入的pathIndex来创建不同形状的云。通过直接对svg标签宽高的设置，来进行svg图形的缩放以达到自适应效果</p>
+<p>RT： 最开始的时候想的是依次把路径存入数组，但发现这样写得太烂，又想到创建三个不同类型的云对象，还是差点意思，最后才想到都是云，只是路径不同，应为一个对象，多种情况才对。<br>关于自适应，创建svg画布，定下宽高，有点没想明白的是为什么不同屏幕下svg图形宽高会更改，会导致画的点超过画布宽高限制，造成overflow：hidden的效果，通过对svg宽高样式设定即可更改，猜测是画布设置宽高时候的尺寸单位的问题。</p>
+<h2 id="多个dom的js-gt-css动画"><a href="#多个dom的js-gt-css动画" class="headerlink" title="多个dom的js =&gt; css动画"></a>多个dom的js =&gt; css动画</h2><h3 id="多层父子叠加"><a href="#多层父子叠加" class="headerlink" title="多层父子叠加"></a>多层父子叠加</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"grandFather"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"father"</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">img</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"uncle"</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Q：需要实现的效果是hover img 时 img slideOut  + slideIn </p>
+<p>A： 子元素取一个相同类名 利用js判断mouseover的时候e.target的类名，满足时通过递归找到父元素，给父元素进行类名的替换来更改子元素的动画<br>（更优解）直接利用css 给 grandFather 加上伪类选择器 来操作相应子元素</p>
+<p>RT：最开始的时候比较愚蠢…第一反应就是拿js来进行动画操作，想的是e.target来取类名，想的是应该可以取到父元素的类名，可是e.target取不到….准确来说，是会取到你当前精确target的dom的属性….后来又想到给一个相同类名（contains / match），这样判断当存在这个类名时就触发函数，但这样非常不好的是会不停地触发函数，尽管做了各种节流判断等等操作，但始终没有直接利用css来操作更优秀…..我的老天鹅鹅鹅，我之前真的不知道可以hoverA 操作B….</p>
+<h3 id="一父多子多状态"><a href="#一父多子多状态" class="headerlink" title="一父多子多状态"></a>一父多子多状态</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"father"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"childA"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"childB"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Q：需求是实现不同状态下多个child的不同动画</p>
+<p>A： 在css文件内写好不同状态下多个child的不同动画，状态改变时，通过对father dom更替类名的方式，来给下面的多个子元素加上动画。</p>
+<p>RT：人类的愚笨可能就是那么一瞬间，用类名改样式我很早就会，但……这段最开始的时候我写的是直接给一大堆子元素用js加上行内样式….躺尸</p>
+<h2 id="offset-top-amp-amp-offsetTop"><a href="#offset-top-amp-amp-offsetTop" class="headerlink" title="$ offset().top &amp;&amp; offsetTop"></a>$ offset().top &amp;&amp; offsetTop</h2><p>Q：在window.scroll里面利用offset().top来判断执行哪一个函数，可是迷之玄学Bug：有时候会进不去window.scroll函数….</p>
+<p>A： 把所有jq的offset().top的写法改成js的offsetTop</p>
+<p>RT：我真蠢…发现这个答案的时候已经是项目的尾声了，中间一直以自己的手来手动解决玄学（不是）bug，大概就是我自己的想当然导致的问题。</p>
+<p>总结下来自己的理解就是：</p>
+<ol>
+<li>offsetTop不会变，offset().top会变 （根本原因）</li>
+<li>当offset().top与offsetTop的参照对象相同时，offset().top = offsetTop - scrollTop</li>
+</ol>
+<h2 id="移动端300ms问题"><a href="#移动端300ms问题" class="headerlink" title="移动端300ms问题"></a>移动端300ms问题</h2><p>Q： 移动端同时具有拖拽和点击事件</p>
+<p>A： 在touchmove的时候取得当前时间，在touchend的时候取得当前时间，将两个时间（end-move）做差，看差值是否大于300，来区分是拖拽还是点击事件</p>
+<p>RT：之前写的移动端较少，唯一写的时候都是直接用的fastClick…本来这回也想用的，突然被警告要自己全部纯手写嘤嘤嘤…于是思考了一下原理，但是感觉好像不太对…虽然效果是对的orz</p>
+<h2 id="定时器的销毁时间"><a href="#定时器的销毁时间" class="headerlink" title="定时器的销毁时间"></a>定时器的销毁时间</h2><p>Q：需求是做一个当dom移到可视位置时，dom中的数字自动增加（0-finalResult）的效果，但有时由于滑动速度过快，会多个dom同时出现在可视区域内，前面对函数中定时器做的一个优化，导致传入的dom改变时，数字自动停止（大概就是 A 2018 B 2019，A的数字才加到1028的时候，B出现在可视区域了，然后传入函数的dom变成了B，这样导致A的数字已经满足停止条件了，A的数字最后呈现的并不等于finalResult）</p>
+<p>A：把那行优化代码去掉…..然后在最后一个dom出现在可视区域后把全部定时器都销毁</p>
+<p>RT：一开始想的是在数字增加到最后结果的时候就销毁定时器…但是没考虑到实际情况下多个dom同时出现的这种奇葩情况….</p>
+<h2 id="就比较有趣又不是很难的效果"><a href="#就比较有趣又不是很难的效果" class="headerlink" title="就比较有趣又不是很难的效果"></a>就比较有趣又不是很难的效果</h2><h3 id="星星闪烁和流星效果"><a href="#星星闪烁和流星效果" class="headerlink" title="星星闪烁和流星效果"></a>星星闪烁和流星效果</h3><p>星星用尽可能小的圆（仿点）来实现，然后利用animationDelay来实现交替闪烁</p>
+<p>流星就是一个简单的animation：带有倾斜角进行transform移动同时改变opacity的效果</p>
+<p>Tips：用Math.rand()来进行位置和交替闪烁的时间差的定位</p>
+<h3 id="视差效果"><a href="#视差效果" class="headerlink" title="视差效果"></a>视差效果</h3><h4 id="scroll时-gt-云层cover黑夜-效果"><a href="#scroll时-gt-云层cover黑夜-效果" class="headerlink" title="scroll时 =&gt; 云层cover黑夜 效果"></a>scroll时 =&gt; 云层cover黑夜 效果</h4><p>黑夜div的height == 本身需要的 height + 云层 height</p>
+<p>黑夜div里应有一个子元素（position:sticky）</p>
+<p>云层div的margin-top == 自身height的负值</p>
+<h4 id="scroll时-gt-天染上渐变色-效果"><a href="#scroll时-gt-天染上渐变色-效果" class="headerlink" title="scroll时 =&gt; 天染上渐变色 效果"></a>scroll时 =&gt; 天染上渐变色 效果</h4><p>给白色插画背景加上position：sticky</p>
+<p>添加需要染上的颜色的div 加上position：absolute，调整z-index进行覆盖</p>
+<p>Tips：背景颜色可以利用<code>radial-gradient</code>、<code>linear-gradient</code>等来晕染</p>
+<h3 id="nav从中间裂开效果"><a href="#nav从中间裂开效果" class="headerlink" title="nav从中间裂开效果"></a>nav从中间裂开效果</h3><p>不要给navBox设置背景色，而是再添加一个子div专门用来设置背景，利用<code>transform:rotate3d(0,1,0,90deg)</code>把背景设置成黑色更有感觉23333….</p>
+<h3 id="scroll控制图片按固定轨迹移动"><a href="#scroll控制图片按固定轨迹移动" class="headerlink" title="scroll控制图片按固定轨迹移动"></a>scroll控制图片按固定轨迹移动</h3><p>这个本身不难做…难的是根据elementTop来控制他实际移动的轨迹，用rand()或者给固定数值效果都不好，这里采用的方法是利用Math方法+elementTop来算left的值（即x）,y即取elementTop，本次作品实现的轨迹大概是画两个不同半径的半圆，方程为：（x-x0）+ (y-y0) = r^2，实现代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dom.x0 = <span class="number">0</span>;</span><br><span class="line">dom.r = <span class="built_in">window</span>.innerWidth * <span class="number">0.8</span>;</span><br><span class="line">dom.y0 = elementScrollTop - dom.offsetTop;</span><br><span class="line">dom.x = <span class="built_in">Math</span>.abs(<span class="built_in">Math</span>.sqrt(<span class="built_in">Math</span>.pow(dom.r, <span class="number">2</span>) - <span class="built_in">Math</span>.pow(dom.y0, <span class="number">2</span>)) + dom.x0)</span><br><span class="line">   activity.y = elementScrollTop - dom.offsetTop + <span class="built_in">window</span>.innerHeight * <span class="number">0.60</span></span><br></pre></td></tr></table></figure>
+
+<p>Tips： 乘上一定的比例系数效果更好，自适应的话就依据window.innerWidth等来进行定值赋值</p>
+<h3 id="仿显示器-hover看长图效果"><a href="#仿显示器-hover看长图效果" class="headerlink" title="仿显示器-hover看长图效果"></a>仿显示器-hover看长图效果</h3><p>hover看长图解决最后一屏留白原理：transform的数值 == 父元素的高度 -  图片自身的高度</p>
+<p>显示器自适应解决方法：屏幕边框、黑屏、指示灯都用css ab布局实现，然后托台用图片哈哈哈哈哈哈哈哈哈哈，本人积极尝试想到的最简单的解决办法，托台的那种平铺？还是怎么的效果太难实现了5555</p>
+<h2 id="还没解决的一些问题"><a href="#还没解决的一些问题" class="headerlink" title="还没解决的一些问题"></a>还没解决的一些问题</h2><h3 id="插画的scale倍数不对问题"><a href="#插画的scale倍数不对问题" class="headerlink" title="插画的scale倍数不对问题"></a>插画的scale倍数不对问题</h3><p>这边对这个scale倍数的操作主要依附于scroll函数，但是如果用户在浏览时，使用鼠标的滚轮？就是长点滚轮进行浏览 / 在插画页刷新时，没有进入scroll函数，进而导致scale倍数失效。</p>
+<h3 id="sticky和overflow-hidden问题"><a href="#sticky和overflow-hidden问题" class="headerlink" title="sticky和overflow:hidden问题"></a>sticky和overflow:hidden问题</h3><p>在子元素使用sticky时，父元素使用overflow:hidden的时候，sticky好像会失效…准确来说并不是失效，而是子元素相对sticky的父级元素会发生改变，甚至于子元素任何一个父级元素加上hidden都会导致这个情况，在参考了<a href="https://stackoverflow.com/questions/43909940/why-does-overflowhidden-prevent-positionsticky-from-working" target="_blank" rel="noopener">why-does-overflowhidden-prevent-positionsticky-from-working</a>  的情况下，也依旧没有解决问题555555…我太菜了，给方法了我都看不懂</p>
+<h3 id="图片过多影响加载速度"><a href="#图片过多影响加载速度" class="headerlink" title="图片过多影响加载速度"></a>图片过多影响加载速度</h3><p>这个在写作品的时候确实没考虑到嘤嘤嘤，在比赛答辩的时候被问到了，却也说不上来什么解决办法，事后问了一下学长，学长给出的方法是</p>
+<ol>
+<li>图片压缩</li>
+<li>图片上 cdn 缓存</li>
+<li>webpack 打包配置一些优化资源策略(一般转成 base64 这样子)</li>
+<li>图片拉取重试机制</li>
+</ol>
+<p>试了一下前两个，后面两个没太搞懂，忙完这段时间试试看！</p>
+<h3 id="主席团页面向左滚动数值固定"><a href="#主席团页面向左滚动数值固定" class="headerlink" title="主席团页面向左滚动数值固定"></a>主席团页面向左滚动数值固定</h3><p>这个一开始想的是，知道起点值，知道终点值，直接给滚动时加固定值就好了，可是实际运用时还是有点问题，有点类似与前面说的scroll时操作图片按固定轨迹运动（依据elementTop自动调整），改的方法应该跟这个差不多，但是我现在没心情再写这个作品了嘤嘤嘤…过段时间缓过来再说吧</p>
+<h3 id="防抖节流"><a href="#防抖节流" class="headerlink" title="防抖节流"></a>防抖节流</h3><p>这个之前只写过代码片段，实际操作的时候感觉还是有点问题，所以这个作品里关于这方面写得感觉没有很好…再去看看相关知识吧orz…</p>
+<h2 id="碎碎念"><a href="#碎碎念" class="headerlink" title="碎碎念"></a>碎碎念</h2><p>​    这次比赛最开始是在9.21开始准备写，加上中间去看音乐节、实习周等等情况，实际写下来大概也花了一个月左右。不得不说，这比赛真的比得我怀疑人生…比赛结束四个小时后在金鹰的那家烤肉店释然了23333….不管怎么样还是要继续学哇…所以写了一个总结，总结一下自己这一个月来学会了啥</p>
+<p>作品的github地址：<a href="https://github.com/HKFPouu/SACC-Website" target="_blank" rel="noopener">SACC-Website</a></p>
+<p>那就写到这里啦！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/summary/" rel="tag"># summary</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/09/29/%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/" rel="prev" title="前端入坑指南0.0">
+      <i class="fa fa-chevron-left"></i> 前端入坑指南0.0
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#小喇叭"><span class="nav-number">1.</span> <span class="nav-text">小喇叭</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#canvas"><span class="nav-number">2.</span> <span class="nav-text">canvas</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染错乱问题（偶然性）"><span class="nav-number">2.1.</span> <span class="nav-text">渲染错乱问题（偶然性）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自适应问题"><span class="nav-number">2.2.</span> <span class="nav-text">自适应问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多层色星球填色动画"><span class="nav-number">2.3.</span> <span class="nav-text">多层色星球填色动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多边形填色"><span class="nav-number">2.4.</span> <span class="nav-text">多边形填色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表面粗糙的圆"><span class="nav-number">2.5.</span> <span class="nav-text">表面粗糙的圆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贝塞尔曲线"><span class="nav-number">2.6.</span> <span class="nav-text">贝塞尔曲线</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非常频繁出现的elementScrollTop"><span class="nav-number">3.</span> <span class="nav-text">非常频繁出现的elementScrollTop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自动更改导航选中项"><span class="nav-number">3.1.</span> <span class="nav-text">自动更改导航选中项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插画scale覆盖无法点击"><span class="nav-number">3.2.</span> <span class="nav-text">插画scale覆盖无法点击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fake-Lazy-Load"><span class="nav-number">3.3.</span> <span class="nav-text">Fake Lazy Load</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不同页面绑定不同的滚动函数"><span class="nav-number">3.4.</span> <span class="nav-text">不同页面绑定不同的滚动函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SVG做云的矢量图形"><span class="nav-number">4.</span> <span class="nav-text">SVG做云的矢量图形</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多个dom的js-gt-css动画"><span class="nav-number">5.</span> <span class="nav-text">多个dom的js &#x3D;&gt; css动画</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多层父子叠加"><span class="nav-number">5.1.</span> <span class="nav-text">多层父子叠加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一父多子多状态"><span class="nav-number">5.2.</span> <span class="nav-text">一父多子多状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#offset-top-amp-amp-offsetTop"><span class="nav-number">6.</span> <span class="nav-text">$ offset().top &amp;&amp; offsetTop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动端300ms问题"><span class="nav-number">7.</span> <span class="nav-text">移动端300ms问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时器的销毁时间"><span class="nav-number">8.</span> <span class="nav-text">定时器的销毁时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#就比较有趣又不是很难的效果"><span class="nav-number">9.</span> <span class="nav-text">就比较有趣又不是很难的效果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#星星闪烁和流星效果"><span class="nav-number">9.1.</span> <span class="nav-text">星星闪烁和流星效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视差效果"><span class="nav-number">9.2.</span> <span class="nav-text">视差效果</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#scroll时-gt-云层cover黑夜-效果"><span class="nav-number">9.2.1.</span> <span class="nav-text">scroll时 &#x3D;&gt; 云层cover黑夜 效果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scroll时-gt-天染上渐变色-效果"><span class="nav-number">9.2.2.</span> <span class="nav-text">scroll时 &#x3D;&gt; 天染上渐变色 效果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nav从中间裂开效果"><span class="nav-number">9.3.</span> <span class="nav-text">nav从中间裂开效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scroll控制图片按固定轨迹移动"><span class="nav-number">9.4.</span> <span class="nav-text">scroll控制图片按固定轨迹移动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#仿显示器-hover看长图效果"><span class="nav-number">9.5.</span> <span class="nav-text">仿显示器-hover看长图效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#还没解决的一些问题"><span class="nav-number">10.</span> <span class="nav-text">还没解决的一些问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#插画的scale倍数不对问题"><span class="nav-number">10.1.</span> <span class="nav-text">插画的scale倍数不对问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sticky和overflow-hidden问题"><span class="nav-number">10.2.</span> <span class="nav-text">sticky和overflow:hidden问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片过多影响加载速度"><span class="nav-number">10.3.</span> <span class="nav-text">图片过多影响加载速度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主席团页面向左滚动数值固定"><span class="nav-number">10.4.</span> <span class="nav-text">主席团页面向左滚动数值固定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防抖节流"><span class="nav-number">10.5.</span> <span class="nav-text">防抖节流</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#碎碎念"><span class="nav-number">11.</span> <span class="nav-text">碎碎念</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ouu"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">ouu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ouu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="localz"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/nico.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

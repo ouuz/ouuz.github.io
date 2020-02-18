@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Hole" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="写在前面的碎碎念： 页面看起来简单 实际操作太难了…注意事项好多(+﹏+) 基本内容编写建议保持的代码结构删除多余的标签，尽量避免使用除了 table、html、meta、head之外的标签，div在细节处理的时候可以适当使用，不使用 p 标签，整体保证 table 布局。 HTML编码使用 utf-8  123456789&lt;!DOCTYPE html&gt;&lt;html lang&#x3D;&quot;e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="邮件模板">
+<meta property="og:url" content="http://yoursite.com/2019/08/23/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/index.html">
+<meta property="og:site_name" content="Hole">
+<meta property="og:description" content="写在前面的碎碎念： 页面看起来简单 实际操作太难了…注意事项好多(+﹏+) 基本内容编写建议保持的代码结构删除多余的标签，尽量避免使用除了 table、html、meta、head之外的标签，div在细节处理的时候可以适当使用，不使用 p 标签，整体保证 table 布局。 HTML编码使用 utf-8  123456789&lt;!DOCTYPE html&gt;&lt;html lang&#x3D;&quot;e">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2019/08/23/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/%E6%89%8B%E6%9C%BAQQ%E9%82%AE%E4%BB%B6%E5%8A%9F%E8%83%BD.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/23/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/%E7%99%BE%E5%88%86%E6%AF%94.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/23/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/%E5%83%8F%E7%B4%A0%E5%80%BC.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/23/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/1.0.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/23/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/2.0.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/23/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/3.0.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/23/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/4.0.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/23/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/5.0.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/23/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/6.0.png">
+<meta property="article:published_time" content="2019-08-23T08:01:05.000Z">
+<meta property="article:modified_time" content="2019-11-24T14:21:45.412Z">
+<meta property="article:author" content="ouu">
+<meta property="article:tag" content="邮件模板">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/23/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/%E6%89%8B%E6%9C%BAQQ%E9%82%AE%E4%BB%B6%E5%8A%9F%E8%83%BD.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2019/08/23/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>邮件模板 | Hole</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hole</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/23/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="ouu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hole">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          邮件模板
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-23 16:01:05" itemprop="dateCreated datePublished" datetime="2019-08-23T16:01:05+08:00">2019-08-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-24 22:21:45" itemprop="dateModified" datetime="2019-11-24T22:21:45+08:00">2019-11-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>写在前面的碎碎念：</p>
+<p>页面看起来简单 实际操作太难了…注意事项好多(<em>+﹏+</em>)</p>
+<h1 id="基本内容编写"><a href="#基本内容编写" class="headerlink" title="基本内容编写"></a>基本内容编写</h1><h2 id="建议保持的代码结构"><a href="#建议保持的代码结构" class="headerlink" title="建议保持的代码结构"></a>建议保持的代码结构</h2><p>删除多余的标签，尽量避免使用除了 table、html、meta、head之外的标签，div在细节处理的时候可以适当使用，不使用 p 标签，整体保证 table 布局。</p>
+<p>HTML编码使用 utf-8 </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>  <span class="attr">style</span>=<span class="string">"margin: 0; padding: 0"</span>&gt;</span></span><br><span class="line">  </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用table布局"><a href="#使用table布局" class="headerlink" title="使用table布局"></a>使用table布局</h2><p>在这里，我遇到非常多坑。</p>
+<p>在查阅众多资料时，大家都不约而同提到说使用table布局，但理由是利用table本身的一些属性进行布局，可我查阅MDN官方文档时，却发现很多table里很多属性在现在已经不再支持了，于是我采用了<code>&lt;div&gt;&lt;/div&gt;</code> ，这在后期遇到了非常多的问题，这里就先暂且不提。</p>
+<p>况且，因为<strong>不能使用HTML5语法</strong>，并且客户端对CSS的支持情况不尽相同，所以我们整体布局要使用table布局，且必须使用table布局，就<strong>不要使用div p等标签</strong>了。</p>
+<h3 id="创建body和主体表格"><a href="#创建body和主体表格" class="headerlink" title="创建body和主体表格"></a>创建body和主体表格</h3><p>这里建议<strong>表格宽度为600-800px</strong>，因为这个宽度会使得你的邮件在桌面和客户端以及大多数的屏幕分辨率下显示的最舒服，且不会超过客户端的显示宽度。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">align</span>=<span class="string">"center"</span> <span class="attr">border</span>=<span class="string">"1"</span> <span class="attr">cellpadding</span>=<span class="string">"0"</span> <span class="attr">cellspacing</span>=<span class="string">"0"</span> <span class="attr">width</span>=<span class="string">"600"</span> <span class="attr">style</span>=<span class="string">"border-collapse: collapse;"</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span> Hello! <span class="tag">&lt;/<span class="name">td</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里先在最外层设置的<code>&lt;table&gt;&lt;/table&gt;</code>是用来设置背景的，border=”1” 只是为了方便开发，在发布时应设置为0。</p>
+<p>值得注意的是，设置<code>border-collapse</code>的属性值为<code>collapse</code>。如果我们不这样做，新版本的Outlook将会给我们的表格与边框之间添加一个小的空间距。</p>
+<h3 id="创建结构和头部"><a href="#创建结构和头部" class="headerlink" title="创建结构和头部"></a>创建结构和头部</h3><p>看邮件整体设计，分为几个逻辑部分就设置几行</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">td</span> <span class="attr">bgcolor</span>=<span class="string">"#ffffff"</span> <span class="attr">style</span>=<span class="string">"padding: 40px 30px 40px 30px;"</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">"1"</span> <span class="attr">cellpadding</span>=<span class="string">"0"</span> <span class="attr">cellspacing</span>=<span class="string">"0"</span> <span class="attr">width</span>=<span class="string">"100%"</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span> </span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span> Row 1 <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span> </span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span> Row 2 <span class="tag">&lt;/<span class="name">td</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span> </span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span> Row 3 <span class="tag">&lt;/<span class="name">td</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h2 id="样式编写"><a href="#样式编写" class="headerlink" title="样式编写"></a>样式编写</h2><p><strong>如果一个属性存在于HTML中，绝对使用标签属性而不使用CSS样式。</strong></p>
+<h3 id="充分利用table私有属性"><a href="#充分利用table私有属性" class="headerlink" title="充分利用table私有属性"></a>充分利用table私有属性</h3><p>充分利用<strong>width, height, bgcolor, background, align, valign</strong>等。</p>
+<p>不需要考虑DOM节点的精简和结构的优化，不必吝啬使用空的表格元素来占据空间，只要完成设计效果即可。</p>
+<h3 id="使用内联样式"><a href="#使用内联样式" class="headerlink" title="使用内联样式"></a>使用内联样式</h3><p>有一部分邮件客户端只支持内联样式，并且会添加一些奇奇怪怪的类名，进而导致我们的样式失效。</p>
+<p>并且，不能使用<code>&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;</code>来处理主要样式，所有的Web邮件系统都会过滤该标签。</p>
+<p>但对于习惯写外联样式的程序员来说，这会导致在编写代码时非常不顺手，开发和维护的成本都太高了。</p>
+<p>所以在这边我推荐一个线上的内联样式编译工具<a href="https://templates.mailchimp.com/resources/inline-css/" target="_blank" rel="noopener">CSS Inliner Tool</a>。通过这个，就可以将<code>&lt;style&gt;&lt;/style&gt;</code>中的样式，编译到对应的标签内。</p>
+<h3 id="不简写样式"><a href="#不简写样式" class="headerlink" title="不简写样式"></a>不简写样式</h3><p>比如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">"font: 8px/14px Arial, sans-serif;"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>有些客户端是不支持的！老老实实分开写吧！</p>
+<h3 id="不用margin"><a href="#不用margin" class="headerlink" title="不用margin"></a>不用margin</h3><p>部分客户端会有自己的默认样式，当我们在客户端进行查看发现内容之间存在的空隙时，往往会忽视这只是某些客户端的默认样式，从而找不到问题所在。</p>
+<ul>
+<li>为所有元素都应用<code>margin: 0;</code>这个属性来排除干扰。</li>
+<li>采用<code>padding</code>代替<code>margin</code>来增加空隙。</li>
+</ul>
+<h3 id="不用绝对定位"><a href="#不用绝对定位" class="headerlink" title="不用绝对定位"></a>不用绝对定位</h3><p>我在进行图片的垂直水平居中时，下意识采用了</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.ImgBox</span>&#123;</span><br><span class="line">  ....</span><br><span class="line">  <span class="selector-tag">position</span>: <span class="selector-tag">absolute</span>;</span><br><span class="line">  <span class="selector-tag">top</span>: 50%;</span><br><span class="line">  <span class="selector-tag">transform</span>: <span class="selector-tag">translateY</span>(<span class="selector-tag">-50</span>%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>进行定位，在浏览器进行调试时一切正常，但在邮箱中图片却跑到表格右下角了，这个问题我至今仍然没想出原因.</p>
+<p>原以为是绝对定位的问题，但发现将百分比算成精确像素值后，却能实现了。。？</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.ImgBox</span>&#123;</span><br><span class="line">  ....</span><br><span class="line"> <span class="selector-tag">position</span>: <span class="selector-tag">absolute</span>;</span><br><span class="line"> <span class="selector-tag">left</span>: 190<span class="selector-tag">px</span>;</span><br><span class="line"> <span class="selector-tag">top</span>: 125<span class="selector-tag">px</span>;</span><br><span class="line"> <span class="selector-tag">width</span>: 250<span class="selector-tag">px</span>;</span><br><span class="line"> <span class="selector-tag">height</span>: 250<span class="selector-tag">px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>换成像素后垂直居中成功我能理解，但为何在浏览器显示一切正常的布局在邮箱中却崩了呢？（待我再学习学习再来看这个问题）</p>
+<p>所以避免此类奇奇怪怪的谜之解决不了的问题，我建议是不用绝对定位，从根本上解决问题 O(∩_∩)O  多使用 table自带属性就能解决问题。</p>
+<p>如果使用 float 进行布局 ，记得清除浮动。清除浮动方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;table style&#x3D;&quot;clear:both&quot;&gt;...&lt;&#x2F;table&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>不允许使用   </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">td</span> <span class="attr">style</span>=<span class="string">”background:url(http://…)”</span>&gt;</span> ... <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>应使用 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;td background&#x3D;“http:&#x2F;&#x2F;…”&gt;&lt;&#x2F;td&gt;</span><br></pre></td></tr></table></figure>
+
+<p>因为CSS背景图片是一种会影响页面渲染速度的定义，因此大多数Web邮件系统会过滤。</p>
+<ul>
+<li>不建议使用<code>&lt;img&gt;&lt;/img&gt;</code> ，因为会有4px的空白部分。</li>
+<li>背景颜色可以采用table的自带属性  bgcolor</li>
+<li>但值得注意的是，outlook对背景图片不识别</li>
+<li>在有背景图的地方设置background-color / bgcolor 以防背景图不显示时可以较美观的显示</li>
+</ul>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><ul>
+<li>所有图片都定好具体的宽高，使用精确像素值</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">style</span>=<span class="string">"display: block; vertical-align: top;"</span>&gt;</span><span class="tag">&lt;/<span class="name">img</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>去掉图片之间的4px空白缝隙  必须加上的  top 也可以换成bottom，但是设置要求一致  </li>
+<li>不要有太多图片，会被定义成垃圾邮件，能切图直接上手切，能拼接直接拼。在查资料的时候有看到：整页图片控制在8张以内，每张图片最大不能超过15KB。但经自己实际测试，超过八张其实也没事，但还是不建议太多图片，图片大小不超过100KB比较好，太大太多都可能被归类为垃圾邮件。</li>
+<li>图片名称不能含有ad字符，否则图片上传后会显示成“被过滤广告”</li>
+<li>如果嵌套的图片太长，会导致显示不正常，可将图片裁切成几张较短的小图，再进行布局</li>
+<li>不使用flash、<a href="http://lib.csdn.net/base/17" target="_blank" rel="noopener">Java</a>、<a href="http://lib.csdn.net/base/18" target="_blank" rel="noopener">JavaScript</a>、frames、iframe、activeX以及DHTML，如果页面中的图片一定要动态的，请将flash文件转换成gif动画使用，但在outlook2007里，gif将不能正常显示，因为outlook2007限制gif动画。</li>
+</ul>
+<h3 id="文字"><a href="#文字" class="headerlink" title="文字"></a>文字</h3><p>这里也踩了很多坑，部分客户端没办法加上字体颜色，在查阅众多资料后，找到了最不会出错的一种方法。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">size</span>=<span class="string">"5"</span> <span class="attr">color</span>=<span class="string">"white"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>不使用类似如下敏感及带促销类的文字：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">风险，处理，温馨提示，实名认证,  财付, 安全隐患, 您的QQ,预览, 被盗,随机抽取，周年庆典, 解除,服务器维护,查收、免费、优惠、特惠、特价、低价、便宜、廉价、视频、赚钱、群发、发财、致富、代开、薪水、交友、支付、商机、法宝、宝典、秘密、情报、机密、保密、绝密、神秘、秘诀等</span><br></pre></td></tr></table></figure>
+
+<p>​        如果一定需要，请把敏感字做成图片。</p>
+<ul>
+<li><code>font-family</code> 只支持系统字体，不支持自定义字体，也不支持 <code>font</code> 简写</li>
+<li>字体颜色尽可能也不要使用简写（使用完整的6个完整的十六进制编码，使用三个简写字符不总是有效）</li>
+<li>对于加粗字体，可以使用b标签而不要使用font-weight</li>
+<li>font-family属性不能为空，否则会被QQ屏蔽为垃圾邮件。</li>
+</ul>
+<h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><ul>
+<li>任何链接都写成绝对地址。</li>
+<li>链接地址的长度不能超过255个字符，会导致无法追踪或链接错误。</li>
+<li>为避免用户收到的邮件图片无法浏览，请制作一份和邮件内容一样的web页面，然后在邮件顶部注明：“如果您无法查看邮件内容，请点击这里”，链接到拥有同样内容的web页面。</li>
+<li>链接地址的长度不能超过255个字符，会导致无法追踪或链接错误。</li>
+</ul>
+<h3 id="垂直水平居中"><a href="#垂直水平居中" class="headerlink" title="垂直水平居中"></a>垂直水平居中</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">style</span>=<span class="string">”width:apx;</span> <span class="attr">margin:auto</span>”&gt;</span><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    在Web邮件中，会自动为你在最外层生成一个<code>&lt;div style=”width:apx; margin:auto”&gt;</code> 的元素，不要自己    在邮件模板最外层画蛇添足。</p>
+<ul>
+<li>使用table自带属性   <strong>align=”center”</strong></li>
+<li>值得注意的是：在yahoo邮箱中，在table里设定align=”center”无法居中， 需要内联style=“margin：0 auto，width：XX”  </li>
+</ul>
+<h3 id="各种间距"><a href="#各种间距" class="headerlink" title="各种间距"></a>各种间距</h3><ul>
+<li>若希望邮件模板内侧边或者上下有空白间距，不要用 padding，必须得用标准的 td 来设定空白间距，否则会导致各个邮箱解析不同。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">table</span>&#123;</span><br><span class="line">    <span class="attribute">border-collapse</span>: separate; </span><br><span class="line">    <span class="attribute">border-spacing</span>: <span class="number">10px</span> <span class="number">5px</span>;  <span class="comment">/* 水平间距 垂直间距 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>或给（空白的） td 设置高度来控制垂直间距（占位）。</li>
+<li>给table 设置空白边距时，不要用 padding、marin ，应使用border-top等设置</li>
+</ul>
+<h3 id="table布局Tips"><a href="#table布局Tips" class="headerlink" title="table布局Tips"></a>table布局Tips</h3><ul>
+<li><p>尽量不在<code>&lt;tr&gt;&lt;/tr&gt;</code>元素上定义CSS样式，请将样式尽量定义在<code>&lt;td&gt;&lt;/td&gt;</code>元素上。</p>
+</li>
+<li><p>不能使用伪类和伪元素以及高级选择符。</p>
+</li>
+<li><p>可以使用&lt;<code>div&gt;&lt;/div&gt;</code>来实现细节的、具有典型块级元素的布局样式。而不能使用<code>&lt;p&gt;&lt;/p&gt;</code>，因为我们不容易清除<code>&lt;p&gt;&lt;/p&gt;</code>在不同浏览器的默认样式。但整体仍要保证table和元素样式来完成所有基本样式和布局。</p>
+</li>
+<li><p>注意table不会继承font，在每个<td>元素上都定义字体属性和颜色。</p>
+</li>
+<li><p>永远记住要使用完整的6个<strong>完整的十六进制编码</strong>，如果使用三个简写字符，不总是有效</p>
+</li>
+<li><p>p 标签的 width 是不认识的，只有<td>设置了宽度，内容才会在宽度限制处换行</p>
+</li>
+<li><p>如果 td 里包含一个 table，那么定义在子 table 里的标签的样式只会正确显示定义在子 table 里的样式，在父 table 的样式是不能正确显示的。注意：如果在 table 里有 a 标签的话，则 a 标签中的内容的颜色样式要定义在 a 标签内，定义在父 td 里或所在的 table 里都是无效的。</p>
+</li>
+</ul>
+<h3 id="不做响应式"><a href="#不做响应式" class="headerlink" title="不做响应式"></a>不做响应式</h3><p>没有必要，个人觉得意义不大，徒增烦恼。</p>
+<p>采用固定的宽度，让各屏幕显示效果一致，手机端查看的邮件时候只需要适当地缩放就可以了。只要设计合理，字体大小合适，就没有什么大问题。</p>
+<h2 id="不同邮箱注意事项"><a href="#不同邮箱注意事项" class="headerlink" title="不同邮箱注意事项"></a>不同邮箱注意事项</h2><h3 id="outlook"><a href="#outlook" class="headerlink" title="outlook"></a>outlook</h3><ul>
+<li>对背景图片不识别</li>
+<li>.在<td>里设置 margin 是无效的</li>
+<li>如果要使用<code>&lt;P&gt;&lt;/p&gt;</code>标签要考虑到本身自带的上下行之间的行高</li>
+<li>内联元素的 padding 、vertical-align无法被识别，可在td中设定</li>
+<li><col>标签不能被识别，如果要定义几个 td 相同的宽度，可以把具体的宽度写在对应的 td 里</li>
+<li>设置 table 的<code>border-collapse</code>的属性值为<code>collapse</code>。否则，新版本的Outlook将会给我们的表格与边框之间添加一个小的空间距。</li>
+</ul>
+<h3 id="fox-mail"><a href="#fox-mail" class="headerlink" title="fox mail"></a>fox mail</h3><ul>
+<li>所有p标签的 margin为 0； 使用 p 标签时需要设置margin</li>
+<li>如果 td 里有 p 标签，则 line-height 也必须在 p 中定义。</li>
+<li>无论是 td 还是 p，如果有超链接，则都必须在 a 标签里定义 line-height；如果只是在 td 或者 p 里面定义 line-height 的话，将无法识别 a 里面的行高。</li>
+</ul>
+<h3 id="yahoo"><a href="#yahoo" class="headerlink" title="yahoo"></a>yahoo</h3><ul>
+<li>需在块级元素里定义 line-height</li>
+<li>table里设定align=”center”无法居中， 需要内联style=“margin：0 auto，width：XX”</li>
+</ul>
+<h2 id="thymeleaf模板引擎"><a href="#thymeleaf模板引擎" class="headerlink" title="thymeleaf模板引擎"></a>thymeleaf模板引擎</h2><p>根据不同的消息类型来展示不同的内容，主要用到的渲染语法如下：</p>
+<h3 id="获取变量值"><a href="#获取变量值" class="headerlink" title="获取变量值"></a>获取变量值</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">th:text</span>=<span class="string">"'Hello！, ' + $&#123;name&#125; + '!'"</span> &gt;</span>3333<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">全部替换</span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">th:text</span>=<span class="string">"$&#123;copyright&#125;"</span>&gt;</span>© 2018 Closeli, Inc., All rights reserved <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看出获取变量值用<code>$</code>符号,对于javaBean的话使用<code>变量名.属性名</code>方式获取,这点和EL表达式一样.</p>
+<p>另外<code>$</code>表达式只能写在th标签内部,不然不会生效,上面例子就是使用<code>th:text</code>标签的值替换<code>p</code>标签里面的值,至于p里面的原有的值只是为了给前端开发时做展示用的.这样的话很好的做到了前后端分离.</p>
+<h3 id="引入图片url地址"><a href="#引入图片url地址" class="headerlink" title="引入图片url地址"></a>引入图片url地址</h3><p>Thymeleaf对于URL的处理是通过语法@{…}来处理</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">th:href</span>=<span class="string">"@&#123;http://blog.csdn.net/u012706811&#125;"</span>&gt;</span>绝对路径<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">th:href</span>=<span class="string">"@&#123;/&#125;"</span>&gt;</span>相对路径<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">th:href</span>=<span class="string">"@&#123;css/bootstrap.min.css&#125;"</span>&gt;</span>Content路径,默认访问static下的css文件夹<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">动态获取src地址</span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">""</span> <span class="attr">width</span>=<span class="string">"300"</span> <span class="attr">src</span>=<span class="string">"cid:inlineCid0"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串替换"><a href="#字符串替换" class="headerlink" title="字符串替换"></a>字符串替换</h3><p>很多时候可能我们只需要对一大段文字中的某一处地方进行替换，可以通过字符串拼接操作完成：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">th:text</span>=<span class="string">"'Welcome to our application, ' + $&#123;user.name&#125; + '!'"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="布尔值条件判断"><a href="#布尔值条件判断" class="headerlink" title="布尔值条件判断"></a>布尔值条件判断</h3><p>通过布尔值条件判断渲染来切换不同的显示界面从而达到预期效果，同时还用到了解析对象的语法th:utext</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"push-content"</span> <span class="attr">th:if</span>=<span class="string">"$&#123;pushContent != null&#125;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span> <span class="attr">th:text</span>=<span class="string">"$&#123;pushContent.title&#125;"</span>&gt;</span>异常运动异常<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="实操踩坑总结"><a href="#实操踩坑总结" class="headerlink" title="实操踩坑总结"></a>实操踩坑总结</h1><h2 id="拒绝的div-amp-p"><a href="#拒绝的div-amp-p" class="headerlink" title="拒绝的div &amp; p"></a>拒绝的div &amp; p</h2><p>不用 table 而用 div 进行布局，结果在手机QQ自带的邮件功能里 padding、margin、line-height、字体颜色等无法正常显示，这个我真的写了好久好久好久好久好久好久好久好久好久好久，因为我之前一直以为用 table 布局的原因是利用私有属性，看属性现在已经不支持以后，就坚持用 div ，害惨我了…</p>
+<p><img src="%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/%E6%89%8B%E6%9C%BAQQ%E9%82%AE%E4%BB%B6%E5%8A%9F%E8%83%BD.jpg" alt="手机QQ邮件功能"></p>
+<p>而且在QQ邮箱客户端显示是正常的，只是在手机QQ自带的邮件功能里有问题，一开始我还以为是手机QQ的bug…但仔细一想，这么明显的问题，总轮不到我个菜狗来发现吧？？肯定是我自己错了</p>
+<p>又尝试用line-height来控制垂直间距，可依旧失败，改用padding也失败…试了好几十回，终于想到改用table布局…前人的泪不是白流的啊！！！</p>
+<h2 id="偷懒不肯写内联"><a href="#偷懒不肯写内联" class="headerlink" title="偷懒不肯写内联"></a>偷懒不肯写内联</h2><p>在最开始的时候，偷懒…死活不写内联样式，嫌麻烦 最后导致客户端样式全无…被迫营业</p>
+<p>感谢线上内联样式编译器 重新给我生命！</p>
+<h2 id="讨厌的绝对定位"><a href="#讨厌的绝对定位" class="headerlink" title="讨厌的绝对定位"></a>讨厌的绝对定位</h2><p>在使用 div 进行布局的基础上，想法是有一个背景颜色 + 背景图 做水印 LOGO ，于是用到了绝对定位来对水印图进行定位，用了百分比和精确像素值，两种方法在浏览器都显示正常，但经邮件发送后，前者图片会跑到表格右下角，精确像素值则显示正常，猜测是相对的位置不对了，但写这篇博客时还未经验证。</p>
+<p><img src="%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/%E7%99%BE%E5%88%86%E6%AF%94.png" alt="百分比"></p>
+<p><img src="%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/%E5%83%8F%E7%B4%A0%E5%80%BC.jpg" alt="像素值"></p>
+<p>采用table布局后，由于只能使用一个背景，最后采用了切图方式23333</p>
+<h2 id="大力夸赞的Font"><a href="#大力夸赞的Font" class="headerlink" title="大力夸赞的Font"></a>大力夸赞的Font</h2><p>在客户端上查看时，字体颜色始终无法正常显示，无论是将样式写在 td / tr / body / table，最后采用font标签成功解决</p>
+<h2 id="恶心心设计配色"><a href="#恶心心设计配色" class="headerlink" title="恶心心设计配色"></a>恶心心设计配色</h2><p>在进行邮件模板的样式设计的时候，真的难倒我小叮当了….分享初版至终版变化…心累</p>
+<p><img src="%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/1.0.png" alt="1.0"></p>
+<p><img src="%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/2.0.png" alt="2.0"></p>
+<p><img src="%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/3.0.png" alt="3.0"></p>
+<p><img src="%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/4.0.png" alt="4.0"></p>
+<p><img src="%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/5.0.png" alt="5.0"></p>
+<p><img src="%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/6.0.png" alt="6.0"></p>
+<p>心得大概就是：</p>
+<ul>
+<li>大胆尝试相差甚远的颜色碰撞融合</li>
+<li>文字简洁、间距分明、</li>
+<li>在没有看起来很高级的图片的时候，整体做得简约一些，不整花里胡哨的反而更好看</li>
+<li>边框可以尝试用 <code>&lt;fieldset&gt;&lt;/fieldset&gt;</code> 实现边框中有字的效果！看起来比较高级2333</li>
+<li>宽度要设置好 确实600-800px之间，无论是在PC还是无线看起来都比较舒服</li>
+</ul>
+<h2 id="line-height的一些小Tips"><a href="#line-height的一些小Tips" class="headerlink" title="line-height的一些小Tips"></a>line-height的一些小Tips</h2><p>之前一直不明白</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在这样的代码结构上，line-height 加在 div 上的和直接加在 span 上垂直间距为什么是不一样的？？？</p>
+<p>原因是在span标签前面有一个隐藏的空白字符，且这个字符是继承父元素的字体大小，默认为14px ，因此在父元素 div 上加 line-height ，实际上是加在这个空白字符上的，line-height则是以这个空白字符的字体大小来变化的。</p>
+<p>但当我们直接在 span 上加 line-height 的话，line-height就是直接依据这个 span 标签的实际字体大小来变化的。</p>
+<p>因此，当 span 的字体大小不是14px时，作用在两者上的line-height 形成的垂直间距就会有所不同。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF/" rel="tag"># 邮件模板</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/08/04/%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD%E6%80%BB%E7%BB%93/" rel="prev" title="暑期集训总结">
+      <i class="fa fa-chevron-left"></i> 暑期集训总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/09/29/%E6%8E%88%E8%AF%BE%E8%AE%A1%E5%88%92/" rel="next" title="授课计划">
+      授课计划 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本内容编写"><span class="nav-number">1.</span> <span class="nav-text">基本内容编写</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#建议保持的代码结构"><span class="nav-number">1.1.</span> <span class="nav-text">建议保持的代码结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用table布局"><span class="nav-number">1.2.</span> <span class="nav-text">使用table布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建body和主体表格"><span class="nav-number">1.2.1.</span> <span class="nav-text">创建body和主体表格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建结构和头部"><span class="nav-number">1.2.2.</span> <span class="nav-text">创建结构和头部</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#样式编写"><span class="nav-number">1.3.</span> <span class="nav-text">样式编写</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#充分利用table私有属性"><span class="nav-number">1.3.1.</span> <span class="nav-text">充分利用table私有属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用内联样式"><span class="nav-number">1.3.2.</span> <span class="nav-text">使用内联样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不简写样式"><span class="nav-number">1.3.3.</span> <span class="nav-text">不简写样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不用margin"><span class="nav-number">1.3.4.</span> <span class="nav-text">不用margin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不用绝对定位"><span class="nav-number">1.3.5.</span> <span class="nav-text">不用绝对定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.3.6.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片"><span class="nav-number">1.3.7.</span> <span class="nav-text">图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文字"><span class="nav-number">1.3.8.</span> <span class="nav-text">文字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接"><span class="nav-number">1.3.9.</span> <span class="nav-text">链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垂直水平居中"><span class="nav-number">1.3.10.</span> <span class="nav-text">垂直水平居中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各种间距"><span class="nav-number">1.3.11.</span> <span class="nav-text">各种间距</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#table布局Tips"><span class="nav-number">1.3.12.</span> <span class="nav-text">table布局Tips</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不做响应式"><span class="nav-number">1.3.13.</span> <span class="nav-text">不做响应式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不同邮箱注意事项"><span class="nav-number">1.4.</span> <span class="nav-text">不同邮箱注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#outlook"><span class="nav-number">1.4.1.</span> <span class="nav-text">outlook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fox-mail"><span class="nav-number">1.4.2.</span> <span class="nav-text">fox mail</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yahoo"><span class="nav-number">1.4.3.</span> <span class="nav-text">yahoo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#thymeleaf模板引擎"><span class="nav-number">1.5.</span> <span class="nav-text">thymeleaf模板引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取变量值"><span class="nav-number">1.5.1.</span> <span class="nav-text">获取变量值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入图片url地址"><span class="nav-number">1.5.2.</span> <span class="nav-text">引入图片url地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串替换"><span class="nav-number">1.5.3.</span> <span class="nav-text">字符串替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布尔值条件判断"><span class="nav-number">1.5.4.</span> <span class="nav-text">布尔值条件判断</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实操踩坑总结"><span class="nav-number">2.</span> <span class="nav-text">实操踩坑总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#拒绝的div-amp-p"><span class="nav-number">2.1.</span> <span class="nav-text">拒绝的div &amp; p</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#偷懒不肯写内联"><span class="nav-number">2.2.</span> <span class="nav-text">偷懒不肯写内联</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#讨厌的绝对定位"><span class="nav-number">2.3.</span> <span class="nav-text">讨厌的绝对定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大力夸赞的Font"><span class="nav-number">2.4.</span> <span class="nav-text">大力夸赞的Font</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#恶心心设计配色"><span class="nav-number">2.5.</span> <span class="nav-text">恶心心设计配色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#line-height的一些小Tips"><span class="nav-number">2.6.</span> <span class="nav-text">line-height的一些小Tips</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ouu"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">ouu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ouu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="localz"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/nico.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

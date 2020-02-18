@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Hole" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="前端入坑指南 0.1上回工具人初号机分享过前端入坑指南了，那今天我也来分享一下 ଘ(੭ˊᵕˋ)੭* ੈ  ✩  计软院的学生要学会自己查问题  MDN 文档    这个算是官方文档了，讲得非常详细。    菜鸟教程   适合刚入坑的小白，讲得比较粗略，但比较容易看懂 23333 刚开始学习的时候可以看看！    Google 做搜索引擎   用百度查问题 &#x3D; 摸🐟   使用 Chrome Dev">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端入坑指南0.0">
+<meta property="og:url" content="http://yoursite.com/2019/09/29/%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/index.html">
+<meta property="og:site_name" content="Hole">
+<meta property="og:description" content="前端入坑指南 0.1上回工具人初号机分享过前端入坑指南了，那今天我也来分享一下 ଘ(੭ˊᵕˋ)੭* ੈ  ✩  计软院的学生要学会自己查问题  MDN 文档    这个算是官方文档了，讲得非常详细。    菜鸟教程   适合刚入坑的小白，讲得比较粗略，但比较容易看懂 23333 刚开始学习的时候可以看看！    Google 做搜索引擎   用百度查问题 &#x3D; 摸🐟   使用 Chrome Dev">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2019/09/29/%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8%E4%BD%8D%E7%BD%AE.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/09/29/%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/%E6%90%9C%E7%B4%A2%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/09/29/%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/%E6%B1%89%E5%8C%96vscode(%E4%B8%80).jpg">
+<meta property="og:image" content="http://yoursite.com/2019/09/29/%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/%E6%B1%89%E5%8C%96vscode(%E4%BA%8C).jpg.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/29/%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/%E8%87%AA%E5%8A%A8%E4%BF%9D%E5%AD%98.jpg">
+<meta property="article:published_time" content="2019-09-29T04:37:10.000Z">
+<meta property="article:modified_time" content="2019-11-24T14:21:00.929Z">
+<meta property="article:author" content="ouu">
+<meta property="article:tag" content="写给2019SACC前端组">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/29/%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8%E4%BD%8D%E7%BD%AE.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2019/09/29/%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>前端入坑指南0.0 | Hole</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hole</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/29/%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="ouu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hole">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前端入坑指南0.0
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-09-29 12:37:10" itemprop="dateCreated datePublished" datetime="2019-09-29T12:37:10+08:00">2019-09-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-24 22:21:00" itemprop="dateModified" datetime="2019-11-24T22:21:00+08:00">2019-11-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前端入坑指南-0-1"><a href="#前端入坑指南-0-1" class="headerlink" title="前端入坑指南 0.1"></a>前端入坑指南 0.1</h1><p>上回工具人初号机分享过前端入坑指南了，那今天我也来分享一下 ଘ(੭ˊᵕˋ)੭* ੈ  ✩ </p>
+<h2 id="计软院的学生要学会自己查问题"><a href="#计软院的学生要学会自己查问题" class="headerlink" title="计软院的学生要学会自己查问题"></a><strong>计软院的学生要学会自己查问题</strong></h2><ol>
+<li><p><a href="https://developer.mozilla.org/zh-CN/" target="_blank" rel="noopener"> <strong>MDN</strong></a><a href="https://developer.mozilla.org/zh-CN/" target="_blank" rel="noopener"> </a><a href="https://developer.mozilla.org/zh-CN/" target="_blank" rel="noopener"><strong>文</strong></a><a href="https://developer.mozilla.org/zh-CN/" target="_blank" rel="noopener"><strong>档</strong></a><a href="https://developer.mozilla.org/zh-CN/" target="_blank" rel="noopener">  </a> </p>
+<p>这个算是官方文档了，讲得非常详细。  </p>
+</li>
+<li><p><a href="https://www.runoob.com/" target="_blank" rel="noopener"><strong>菜鸟教</strong></a><a href="https://www.runoob.com/" target="_blank" rel="noopener"><strong>程</strong></a><a href="https://www.runoob.com/" target="_blank" rel="noopener"> </a><a href="https://www.runoob.com/" target="_blank" rel="noopener"> </a></p>
+<p>适合刚入坑的小白，讲得比较粗略，但比较容易看懂 23333 刚开始学习的时候可以看看！  </p>
+</li>
+<li><p><strong>Google</strong> <strong>做搜索引擎</strong>  </p>
+<p>用百度查问题 = 摸🐟 </p>
+</li>
+<li><p><strong>使用 Chrome Dev Tools</strong>  </p>
+<p>这个不多赘述，看上个工具人写的，很详细了  </p>
+</li>
+</ol>
+<h2 id="课前准备工作"><a href="#课前准备工作" class="headerlink" title="课前准备工作"></a>课前准备工作</h2><ol>
+<li><strong>装好浏览器 chrome</strong>  </li>
+<li><strong>下载 vscode</strong> </li>
+</ol>
+<p>（安装包都放在群文件里了，拜托大家在课前自行下载好吼！  </p>
+<a id="more"></a>
+
+<h2 id="关于怎么调教老婆（特指-vscode"><a href="#关于怎么调教老婆（特指-vscode" class="headerlink" title="关于怎么调教老婆（特指 vscode"></a>关于怎么调教老婆（特指 vscode</h2><p>第一步，装好并打开 vscode </p>
+<p>第二步，点开 vscode 左侧列表的插件列表</p>
+<p><img src="%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8%E4%BD%8D%E7%BD%AE.jpg" alt="img">  </p>
+<p>大家打开的跟我的页面可能有点差别…差在哪里呢？</p>
+<p>👧的是中文的，你们的是英文的啊哈哈哈哈  </p>
+<p>别着急！马上就改成中文的嗯嗯嗯嗯嗯！  </p>
+<p>点开上面箭头指的按钮后，  </p>
+<p><img src="%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/%E6%90%9C%E7%B4%A2%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6.jpg" alt="img">  </p>
+<p>在这里！开始复制粘贴！！  </p>
+<p>这是应用商店，你可以在这里搜索安装好用的程序扩展</p>
+<p>我也在这里给大家推荐了十个扩展，先装上！  </p>
+<p>后面大家的  老婆 （不是）编辑器变成什么样子就看自己了👻</p>
+<p><strong>1.</strong>      <strong>Chinese</strong></p>
+<p>汉化你的编辑器（英语是阻碍我写代码的第一道门槛…</p>
+<p>装好以后还没完！！！同时按下 <strong>ctrl+shift+P</strong>  调出命令窗口</p>
+<p>（命令窗口在顶部顶部 弹出来的一个小输入框） </p>
+<p><img src="%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/%E6%B1%89%E5%8C%96vscode(%E4%B8%80).jpg" alt="img"> </p>
+<p>输入 <strong>display</strong>  找到图上这个一长串东西然后点进去更改选中 <strong>zh-cn</strong> </p>
+<p>  <img src="%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/%E6%B1%89%E5%8C%96vscode(%E4%BA%8C).jpg.png" alt="img"></p>
+<p> 就更改完成啦！ </p>
+<p>（Tips：如果完成上述操作还是英文的话，关闭编辑器重启试试噢 </p>
+<p><strong>2.</strong>      <strong>Auto Close Tag</strong>   </p>
+<p>自动闭合标签（也是一个拿来偷懒的插件 QAQ 标签有前后的🐎，装了这个以后，写好前面的，vscode 会帮忙自动补全后面的闭合标签滴</p>
+<p><strong>3.</strong>      <strong>Auto Rename tag</strong> </p>
+<p>自动重新命名标签（比如我本来写的 p 标签，可我想改成 span 了QAQ，可是标签前后都要改，好麻烦，想偷懒…用这个插件就可以同步改好前后啦~！</p>
+<p><strong>4.</strong>      <strong>Open in Browser</strong>  </p>
+<p>允许您在默认浏览器中打开当前文件。  </p>
+<p><strong>5.</strong>      <strong>Live Server</strong></p>
+<p>为静态和动态页面热更新  </p>
+<p>（插话🙃： 虽然好像在写静态页面的时候两个插件差不多，甚至第一个更方便，一个 alt+B 直接就过去了 但…装吧装吧…全装上吧）</p>
+<p><strong>6.</strong>      <strong>Prettier</strong> </p>
+<p>代码格式化工具（一键调好全部缩进还要运算符间隔之类的！妈妈再也不用担心我写的代码密密麻麻被人打😭了！  </p>
+<p><strong>7.</strong>       <strong>Path Intellisense</strong>  </p>
+<p>文件路径补全，在引进外部样式和逻辑代码文件的时候有这个超级爽😎</p>
+<p><strong>8.</strong>      <strong>Code Runner</strong> </p>
+<p>跑一些简单代码，比如 js、C 等等都可以噢！</p>
+<p><strong>9.</strong>       <strong>Color Highlight</strong>  </p>
+<p>颜色代码高亮（这样在编辑器就可以预览颜色，才不要一直重新打开浏览器<strong>🙉</strong></p>
+<p><strong>10.</strong>  <strong>CSS Peek</strong></p>
+<p>小🖱一滑就可以查看你写在这个元素上 HTML + CSS 的全部定义啦  </p>
+<p>还有个不是插件 但也是 偷懒 （不是）调试代码方便的操作：<strong>自动保存</strong> </p>
+<p>手动放大加粗以表示其重要性！！！</p>
+<p>在 vscode 最顶部找到文件（也就是第一个）（就是我箭头画了一堆指的那里！！）</p>
+<p><img src="%E5%89%8D%E7%AB%AF%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%970-0/%E8%87%AA%E5%8A%A8%E4%BF%9D%E5%AD%98.jpg" alt="img"></p>
+<p>点开！看到那下面的自动保存四个大字了咩！  </p>
+<p>勾选就完了！一步到位！！！！</p>
+<p>从此不再天天 CTRL + S CTRL + S CTRL + S CTRL + S CTRL + S……🤣 </p>
+<p>这回就讲这么多啦😝<strong>周六（明天）晚上6点半教四105</strong>不见不散噢🕊</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%86%99%E7%BB%992019SACC%E5%89%8D%E7%AB%AF%E7%BB%84/" rel="tag"># 写给2019SACC前端组</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/09/29/%E6%8E%88%E8%AF%BE%E8%AE%A1%E5%88%92/" rel="prev" title="授课计划">
+      <i class="fa fa-chevron-left"></i> 授课计划
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/20/2019%E7%BD%91%E9%A1%B5%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B%E6%80%BB%E7%BB%93/" rel="next" title="2019 网页设计大赛总结">
+      2019 网页设计大赛总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端入坑指南-0-1"><span class="nav-number">1.</span> <span class="nav-text">前端入坑指南 0.1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计软院的学生要学会自己查问题"><span class="nav-number">1.1.</span> <span class="nav-text">计软院的学生要学会自己查问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课前准备工作"><span class="nav-number">1.2.</span> <span class="nav-text">课前准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于怎么调教老婆（特指-vscode"><span class="nav-number">1.3.</span> <span class="nav-text">关于怎么调教老婆（特指 vscode</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ouu"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">ouu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ouu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="localz"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/nico.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
